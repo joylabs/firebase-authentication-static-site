@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCQdOWtObJQ0oWuvOmb-b-BRdd5mQgYKUg",
+            authDomain: "fir-auth-example-a4f18.firebaseapp.com",
+            databaseURL: "https://fir-auth-example-a4f18.firebaseio.com",
+            projectId: "fir-auth-example-a4f18",
+            storageBucket: "fir-auth-example-a4f18.appspot.com",
+            messagingSenderId: "983265458691"
+        };
+        firebase.initializeApp(config);
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider).then(function (result) {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            var token = result.credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+            firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function (idToken) {
+                window.location.href = "/?idToken=" + idToken;
+            }).catch(function (error) {
+                // Handle error
+            });
+            // ...
+        }).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            alert("Authentication error", error);
+        });
+    </script>
+    <style type="text/css" media="screen">
+        .container {
+            margin: 10px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 30px 0;
+            font-size: 4em;
+            line-height: 1;
+            letter-spacing: -1px;
+        }
+    </style>
+
+    <div class="container">
+        <h1>Log In</h1>
+
+    </div>
+    </div>
+</body>
+
+</html>
